@@ -77,12 +77,14 @@ class Router {
     }
 
     /**
-     * Spawns off some required-initializations and starts router.
+     * Binds listeners and begins to listen in on url requests.
+     * @param {String} url - The url to start with (defaults to current page)
      */
-    start () {
+    start (url) {
         let window = this.getWindow();
-        this._currentPath = window.location.hash.replace('#', '');
+        url = url || window.location.hash.replace('#', '') || window.location.pathname;
         window.addEventListener('popstate', this._getOnPopStateListener);
+        this.triggerRoute(url);
     }
 
     /**

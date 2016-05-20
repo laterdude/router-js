@@ -124,25 +124,15 @@ var router = new Router({
     modulesConfig: modules,
     pagesContainer: document.body.getElementsByClassName('page-container')[0]
 });
-router.start();
+window.addEventListener('DOMContentLoaded', function () {
+    // all page resources are loaded and ready
+    router.start();
+});
 ```
 
 Then, when a user requests the `/home` url,  the templates, script, modules and data
 under your `home` pages config entry will load instantly. Note that to support direct nested url requests, you must
 have your [server setup to do so](#server-setup).
-
-### Handling initial page load
-
-When starting the router and loading the initial page from your browser, the Router could possibly load
-before the DOM has been loaded (depending on when you decide to call the `start()` method). If so,
-you'll need to listen for the DOM to be loaded, and then trigger the current url as illustrated below.
-This should be done right right after your call to `start()`.
-
-```javascript
-window.addEventListener('DOMContentLoaded', function () {
-    router.triggerRoute(window.location.pathname);
-});
-```
 
 ## Options
 
@@ -167,9 +157,10 @@ For the most part, after setting up your Router instance, the user would click a
 But you may want to manually perform actions on your Router using javascript. For this purpose, you can use the methods below on
 your Router instance.
 
-### start()
+### start([url])
 
-Starts the router to begin intercepting url requests and binds all listeners.
+Starts the router to begin intercepting url requests and binds all listeners. You can optionally pass a `url` string that
+the router will load initially. If not, it will load the current url in the browser bar.
 
 ### stop()
 
