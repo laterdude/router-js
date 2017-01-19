@@ -167,7 +167,7 @@ This should be done right right after your call to `start()`.
 
 ```javascript
 window.addEventListener('DOMContentLoaded', function () {
-    router.triggerRoute(window.location.pathname);
+    router.triggerRoute(window.location.pathname + window.location.search);
 });
 ```
 
